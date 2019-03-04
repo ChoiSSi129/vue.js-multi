@@ -34,7 +34,16 @@
     - v-for (:key="obj" 고유 값 입력 index는 사용하지 않음)
     - v-bind (:val 생략형)
     - v-on (@event 생략형)
-    
+
+### 라이프 사이클
+    - beforeCreate
+    - ceated (데이터관찰 및 이벤트초기화 후 실행)
+    - beforeMount
+    - mounted (element 생성 후 실행)
+    - beforeUpdate
+    - updated (데이터가 변경 후 실행)
+    - beforeDestroyed
+    - destroyed (element 제거 후 실행)
 
 ----------------------------
 

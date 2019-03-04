@@ -14,6 +14,16 @@
 var vmSum = new Vue({
     el : "#example", 
     data : { num : 0 },
+    created: function(){
+        console.log("###Crreated");
+        var s =document.getElementsByTagName("span")[0].innerHTML;
+        console.log(s)
+    },
+    updated: function(){
+        console.log("###Updated");
+        var s =document.getElementsByTagName("span")[0].innerHTML;
+        console.log(s)
+    },
     computed : {
         sum : function() {
             var n = Number(this.num);

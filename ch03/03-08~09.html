@@ -7,10 +7,11 @@
     #list  { width: 600px; border:1px solid black; border-collapse:collapse; }
     #list td, #list th { border:1px solid black;  text-align:center; }
     #list > thead > tr { color:yellow; background-color: purple; }
+    [v-cloak] {display:none;}
 </style>
 </head>
 <body>
-    <div id="example">
+    <div id="example" v-cloak>
         <p>
         이름 : <input type="text" v-model="name" placeholder="두글자 이상을 입력하세요" />
         </p>
@@ -21,7 +22,7 @@
                 </tr>
             </thead>
             <tbody id="contacts" >
-                <tr v-for="contact in contactlist">
+                <tr v-for="contact in contactlist" :key="contact.no">
                     <td>{{contact.no}}</td>
                     <td>{{contact.name}}</td>
                     <td>{{contact.tel}}</td>
