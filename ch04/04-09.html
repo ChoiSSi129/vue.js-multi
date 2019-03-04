@@ -14,7 +14,7 @@
     <div id="example"  v-cloak>
         <p>
         이름 : <input type="text" v-model="name" 
-            placeholder="두글자 이상을 입력하세요" />
+            placeholder="두글자 이상을 입력하세요" @keyup="search" /><!-- @keyup.13="search"로 대체 가능 -->
         </p>
         <table id="list">
             <thead>
@@ -46,7 +46,14 @@
         },
         methods : {
             search : function(e) {
-
+                if(e.keyCode === 13){
+                    var val = e.target.value.trim();
+                    if(val.length >= 2){
+                        this.fetchContacts();
+                    } else{
+                        this.contactlist = [];
+                    }
+                }
             },
             fetchContacts : function() {
                 this.contactlist = [];

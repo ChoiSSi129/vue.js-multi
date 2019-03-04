@@ -45,6 +45,11 @@
     - beforeDestroyed
     - destroyed (element 제거 후 실행)
 
+### 이벤트 버브링  3단계
+    1. CAPTURE_PHASE
+    2. AT_TARGET
+    3. BUBBLING_PHASE
+
 ----------------------------
 
 ## 2일차

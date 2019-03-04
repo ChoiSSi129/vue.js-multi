@@ -19,8 +19,8 @@
 </head>
 <body>
 <div id="example">
-    <div id="outer" @click="outerClick">
-        <div id="inner" @click="innerClick"></div>
+    <div id="outer" @click.capture.stop="outerClick">
+        <div id="inner" @click.stop="innerClick"></div><!-- @click.stop로 대체 가능 -->
     </div>
 </div>
 <script type="text/javascript">
@@ -32,12 +32,14 @@ var vm = new Vue({
         console.log("Event Phase : ", e.eventPhase);
         console.log("Current Target : ", e.currentTarget);
         console.log("Target : ", e.target);
+        // e.stopPropagation();
     },
     innerClick : function(e) {
         console.log("### INNER CLICK")
         console.log("Event Phase : ", e.eventPhase);
         console.log("Current Target : ", e.currentTarget);
         console.log("Target : ", e.target);    
+        // e.stopPropagation();
     }
   }
 })
