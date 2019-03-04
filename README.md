@@ -1,26 +1,22 @@
-# MultiCampus (2019-03-04  ~ 2019-03-08)
+# MultiCampus Vue.js (2019-03-04  ~ 2019-03-08)
 
-## Vue.js
-
-----------------------------
-
-### 1일차
+## 1일차
 1. 환경 설정 및 목차소개
 2. Vue.js 기본 개념 소개
 
-#### 가상 DOM
+### 가상 DOM
 * 일반 브라우저 DOM Render
     - re-layout (reflow)
     - re-paint
-    - 변경이 필요한 부분만 변경이 되지 않음
+    - 변경이 필요한 부분만 변경이 되지 않고 ajax 통신으로 들어오는 데이터 전체 갱신
 
 * Vue.js
     - 가상 DOM Render
     - Snabb DOM (JS Object)
-    - 저장된 Object와 변경된 Object 비교하여 필요한 부분만 변경
+    - 저장된 Object와 변경된 Object 비교하여 필요한 부분만 갱신
 
-#### Vue.js 개발 도구
-    - vscode - vetur
+### Vue.js 개발 도구
+    - VScode - vetur
     - 크롬 익스텐션 Vue.js devtools
 
 ----------------------------

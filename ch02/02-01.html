@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>02-01</title>
+</head>
+<body>
+  <!-- View -->
+  <div id="simple">
+    <!-- {{}}보간법 인터폴레이션(interpolation) -->
+    <h2>{{message}}</h2>
+    <!-- 태그 인코딩 -->
+    <h2 v-text="message2"></h2>
+    <!-- 태그 인코딩 하지 않음 -->
+    <h2 v-html="message3"></h2>
+  </div>
+  <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+  <script type="text/javascript">
+    // Model
+    var model = {
+      message : '첫번째 Vue.js 앱 입니다!',
+      message2 : '<i>첫번째 Vue.js 앱 입니다!</i>',
+      message3 : '<i>첫번째 Vue.js 앱 입니다!</i>'
+    };
+
+    // View Model
+    var simple = new Vue({
+        el: "#simple",
+        data: model
+    });
+
+  </script>
+</body>
+</html>

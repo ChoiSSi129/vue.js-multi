@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>실습1</title>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <!--
+        * 실습1
+        Vue 생성 및 데이터 생성 적용
+
+    -->
+<div id="test">
+    <h2>{{message}}</h2>
+    <p>{{message2}}</p>
+</div>
+
+<script>
+    new Vue({
+        el: "#test",
+        data : {
+            message: "테스트 입니다",
+            message2: "테스트 메세지2"
+        }
+    });
+</script>
+</body>
+</html>
