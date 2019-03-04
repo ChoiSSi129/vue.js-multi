@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>03-05</title>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+    x : <input type='text' v-model="x" /><br />
+    y : <input type='text' v-model="y" /><br />
+    덧셈 결과 : {{sum}}
+</div>
+<script type="text/javascript">
+// watch 감시자 속성 주로 긴 처리 시간이 필요한 비동기 처리에 적합
+// computed 속성과는 다르게 return 처리가 필요하지 않음
+var vm = new Vue({
+    el : "#example",
+    data : { x:0, y:0, sum:0 },
+    watch : {
+        x: function(to, from){
+            console.log("###to", to);  
+            console.log("###from", from);
+        },
+        y: function(to, from){
+            console.log("###to", to);  
+            console.log("###from", from);
+        }
+    }
+})
+</script>
+</body>
+</html>
