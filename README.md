@@ -9,13 +9,11 @@
 ### 보간법
 * {{}} 보간법 사용
 
-    new Vue({
-        delimiters: ["${", "}"], // 표현식 변경 가능
-        el: ,
-        data: {
-
-        }
-    });
+        new Vue({
+            delimiters: ["${", "}"], // 표현식 변경 가능
+            el: "#element",
+            data: {}
+        });
 
 ### 가상 DOM
 * 일반 브라우저 DOM Render
@@ -37,12 +35,12 @@
 * computed (계산형 속성에서 사용하는 데이터가 변경될 경우에만 실행 비동기 지원 안함)
 * methods (이벤트 함수)
 * Watched Property 감시자 (비동기 지원)
-data: { x:0, y:0, z: { z1:0 } },
-watch:{ 
-    x: function(to, from){}
-    y: function(to, from){}
-    ["z.z1"]: function(to, from){}
-}
+        data: { x:0, y:0, z: { z1:0 } },
+        watch:{ 
+            x: function(to, from){}
+            y: function(to, from){}
+            ["z.z1"]: function(to, from){}
+        }
 
 * v-if (DOM 렌더링 하지 않음)
 * v-show (DOM 렌더링 후 CSS로 제어)
@@ -77,18 +75,18 @@ watch:{
 * 부모 -> 자식
 - 속성(props) 전달
 - props 입력시 camal case or cabab case 주의하여 작성
-    props: {
-        message: {
-            type:String, 
-            required:true, 
-            default:{
-                type:Array,
-                default: function(){ // default value는 함수형태로 리턴
-                    return ['코리아']
+        props: {
+            message: {
+                type:String, 
+                required:true, 
+                default:{
+                    type:Array,
+                    default: function(){ // default value는 함수형태로 리턴
+                        return ['코리아']
+                    }
                 }
             }
         }
-    }
 * 자식 -> 부모
 - 이벤트(event) 발신
 
