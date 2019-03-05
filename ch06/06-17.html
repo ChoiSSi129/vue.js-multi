@@ -19,13 +19,23 @@
             </tr>
         </thead>
         <tbody id="contacts" >
-
+            <tr v-for="item in contacts" :key="item.no">
+                <td>{{item.no}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.tel}}</td>
+                <td>{{item.address}}</td>
+            </tr>
         </tbody>
     </table>
     </div>
 </template>
 <script type="text/javascript">
-
+    Vue.component("contactlist-component", {
+        template: "#listTemplate",
+        props: [
+            'contacts'
+        ]
+    });
 </script>
 <body>
     <div id="app">

@@ -54,27 +54,56 @@
 <div id="todolistapp">
     <div id="header" class="header">
         <h2>Todo List App</h2>
-        <input class="input" type="text" id="task" placeholder="입력 후 엔터!">
-        <span class="addbutton">추 가</span>
+        <input class="input" type="text" id="task" v-model="todo" placeholder="입력 후 엔터!" @keyup.enter="add">
+        <span class="addbutton" @click="add">추 가</span>
     </div>
     <ul id="todolist">
-        <li>
-            <span>Task 1</span>
-            <span class="close">&#x00D7;</span>
-        </li>
-        <li class="checked">
-            <span>Task2</span>
-            <span> (완료)</span>
-            <span class="close">&#x00D7;</span>
-        </li>
-        <li>
-            <span>Task3</span>
-            <span class="close">&#x00D7;</span>
+        <li v-for="item in todolist" :key="item.id" :class="checked(item.done)" @click="doneToggle(item.id)">
+            <span>{{item.todo}}</span>
+            <span v-if="item.done">(완료)</span>
+            <span class="close" @click.stop="del">&#x00D7;</span>
         </li>
     </ul>
 </div>
 <script type="text/javascript">
+    new Vue({
+        el: "#todolistapp",
+        data: {
+            todo: "",
+            todolist: [
+                {id:1, todo: "영화보기", done: false},
+                {id:2, todo: "영화보기2", done: false},
+                {id:3, todo: "영화보기3", done: false},
+                {id:4, todo: "영화보기4", done: false}
+            ]
+        },
+        methods: {
+            add: function(e){
+                if(this.todo.trim() !== ""){
+                    this.todolist.push( { id: new Date().getTime(), todo: this.todo.trim(), done:false } );
+                    this.todo ="";
+                }
+            },
 
+            del: function(id){
+                var index = this.todolist.findIndex(function(item){
+                    return item.id === id;
+                });
+                this.todolist.splice(index, 1);
+            },
+
+            checked: function(done){
+                return {checked: done};
+            },
+
+            doneToggle: function(id){
+                var index = this.todolist.findIndex(function(item){
+                    return item.id === id;
+                });
+                this.todolist[index].done = !this.todolist[index].done;
+            }
+        }
+    });
 </script>
 </body>
 </html>

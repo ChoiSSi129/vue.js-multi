@@ -6,25 +6,40 @@
   <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
 </head>
 <template id="listTemplate">
-
+    <li>{{message}}{{count}}</li>
 </template>
 <script type="text/javascript">
 Vue.component('list-component', {
-    template : '#listTemplate'   
+    template : '#listTemplate',
+    props: {
+        message: {type:String, deflult:'안녕하세요.'},
+        count: {type:Number, required:true},
+        countries: {
+            type:Array,
+            default: function(){ // default value는 함수형태로 리턴
+                return ['코리아']
+            }
+        }
+    }
 })
 </script>
 <body>
 <div id="app">
     <ul>
-        <list-component message="Hello"></list-component>
-        <list-component message="씬짜오"></list-component>
-        <list-component message="니하오마"></list-component>
+        <list-component message="hello" :count="100"></list-component>
+        <list-component :message="test" :count="110"></list-component>
+        <list-component :count="130"></list-component>
     </ul>
 </div>
 </body>
 <script type="text/javascript">
 var vm = new Vue({
-    el : "#app"
+    el : "#app",
+    data: function(){
+        return{
+            test: "안녕하세요"
+        }
+    }
 })
 </script>
 </html>
