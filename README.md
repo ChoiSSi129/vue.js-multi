@@ -35,6 +35,7 @@
 * computed (계산형 속성에서 사용하는 데이터가 변경될 경우에만 실행 비동기 지원 안함)
 * methods (이벤트 함수)
 * Watched Property 감시자 (비동기 지원)
+
         data: { x:0, y:0, z: { z1:0 } },
         watch:{ 
             x: function(to, from){}
@@ -75,6 +76,7 @@
 * 부모 -> 자식
 - 속성(props) 전달
 - props 입력시 camal case or cabab case 주의하여 작성
+
         props: {
             message: {
                 type:String, 
@@ -87,6 +89,7 @@
                 }
             }
         }
+        
 * 자식 -> 부모
 - 이벤트(event) 발신
 
