@@ -151,18 +151,18 @@
 
 * 전개 연산자
     - 기존 객체의 속성이나 배열의 요소들을 포함하여 새로운 객체, 배열을 생성하고자 할 때 사용
-    
-        기존
-        let obj1 = { name:"홍길동", age:30 };
-        let obj2 = obj1;
-        obj1 === obj2 // true
-        obj2.name = "이몽룡"; // obj1.name도 같이 변경
 
-        전개 연산자
-        let obj1 = { name:"홍길동", age:30 };
-        let obj2 = {...obj1};
-        obj1 === obj2 // flase
-        obj2.name = "이몽룡"; // obj2.name만 변경
+            기존
+            let obj1 = { name:"홍길동", age:30 };
+            let obj2 = obj1;
+            obj1 === obj2 // true
+            obj2.name = "이몽룡"; // obj1.name도 같이 변경
+
+            전개 연산자
+            let obj1 = { name:"홍길동", age:30 };
+            let obj2 = {...obj1};
+            obj1 === obj2 // flase
+            obj2.name = "이몽룡"; // obj2.name만 변경
 
 ----------------------------
 
