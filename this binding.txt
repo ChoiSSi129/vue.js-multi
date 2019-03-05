@@ -1,0 +1,70 @@
+1. javascript this binding
+   --> lexical this binding
+   함수(메서드)를 호출하는 형태가 중요함.(어떤 객체의 메서드로 호출하였는가?)
+
+  function add(x,y) {
+     this.result = x+y;
+  }
+
+  add(4,5)
+
+  var obj = {};
+  obj.add2 = add;
+
+  obj.add2 === add;
+  obj.add2(4,5);
+
+
+2. 강제 this 지정하여 호출하기
+   function.apply()
+   function.call()
+
+  function add(x,y) {
+     this.result = x+y;
+  }
+  var obj = {};
+  add.apply(obj, [4,5]);
+
+3. this를 직접 지정하여 새로운 함수로 리턴하기
+   function.bind()
+
+  function add(x,y) {
+     this.result = x+y;
+  }
+  var obj = {};
+  var add2 = add.bind(obj);
+
+4. 함수가 중첩되었을 때 this?
+
+var obj = {
+   result : 0,
+   add : function(x,y) {
+        var inner = () => {
+             this.result  = x+y;
+        }
+        inner();
+   }
+}
+
+obj.add(4,5);
+obj.result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

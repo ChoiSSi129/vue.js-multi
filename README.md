@@ -75,8 +75,7 @@
 ### 컴포넌트
 * 부모 자식 관계로 트리 구조 형성
 * 부모 -> 자식
-- 속성(props) 전달
-- props 입력시 camal case or cabab case 주의하여 작성
+- 속성(props) 전달(props 입력시 camal case or cabab case 주의하여 작성)
 
         props: {
             message: {
@@ -97,15 +96,73 @@
 
         // 빈 Vue 인스턴스 생성
         var eventBus = new Vue();
-        
+
         // 부모 컴포넌트에서 변경내용 받을 경우
         eventBus.$on("이벤트명", callback);
 
         // 자식 컴포넌트에서 변경내용 전달 할 경우
         eventBus.$emit("이벤트명", 전달 데이터); // 여러개 전달 가능
 
-    
+### ES6
+* npm babel 설치
+    - babel-cli
+    - babel-preset-env // ES6 문법 정보
+    - babel-preset-stage-2
+* .babelrc or package.json에 presets: ["env", "stage2"] 등록 가능
 
+* const, let, var
+    - const 상수 개념으로 한번 선언하면 변경 불가
+    - let 호이스팅 하지 않고 block scope 지원
+    - var 호이스팅 하고 함수 scope만 지원
+
+* 가변 파라미터
+
+        function test(a1, ...a2){
+            console.log(a2); // a1 이후 파라미터 배열로 반환
+        }
+        test("a1", "a2", "a3", "a4")
+    
+* 모듈
+    - import, export를 사용하여 모듈화 가능
+
+        - module.js
+        let a = 100;
+
+        const add = function(b){
+            return a+b;
+        }
+
+        const multiply = function(b){
+            return a*b;
+        }
+
+        export {add, multiply};
+        export default add; // 하나만 export 할 경우
+
+        - main.js
+        import { add, multiply } from "./module1";
+        import add from "./module1"; // 하나만 import 할 경우
+        import add, { add, multiply } from "./module1"; // 다중 import 할 경우
+
+* Promise
+    - axios, fetch, vue-resource, superagent 등이 promise 지원
+    - IE 사용시 Polyfill 사용
+    https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js
+
+* 전개 연산자
+    - 기존 객체의 속성이나 배열의 요소들을 포함하여 새로운 객체, 배열을 생성하고자 할 때 사용
+    
+        기존
+        let obj1 = { name:"홍길동", age:30 };
+        let obj2 = obj1;
+        obj1 === obj2 // true
+        obj2.name = "이몽룡"; // obj1.name도 같이 변경
+
+        전개 연산자
+        let obj1 = { name:"홍길동", age:30 };
+        let obj2 = {...obj1};
+        obj1 === obj2 // flase
+        obj2.name = "이몽룡"; // obj2.name만 변경
 
 ----------------------------
 
