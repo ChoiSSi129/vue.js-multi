@@ -182,58 +182,58 @@
     - 전역 컴포넌트는 한 파일 안에 많은 내용들이 들어 있어 가독성에 좋지 않음
     - vue-loader 패키지가 단일 컴포넌트를 지원
 
-        <template>
+            <template>
 
-        </template>
+            </template>
 
-        <script>
-            export default {
-                name: "",
-                data: function(){
-                    return{
+            <script>
+                export default {
+                    name: "",
+                    data: function(){
+                        return{
 
+                        }
+                    },
+                    methods: {
+                        
                     }
-                },
-                methods: {
                     
                 }
-                
-            }
-        </script>
+            </script>
 
-        <style>
+            <style>
 
-        </style>
+            </style>
 
 * 컴포넌트에서의 스타일
     1. scoped
     - IE에서 Attribute속성이 느리다는 단점
     - scoped 사용해도 자식 컴포넌트에는 스타일 상속
 
-        <style scoped>
-            .main {....}
-        </style>
+            <style scoped>
+                .main {....}
+            </style>
 
     2. module
     - style에 module 추가하여 template class 바인딩 하여 사용
 
-        <template>
-            <div>
-                <button :class="$style.hand">CSS Module을 적용한 버튼</button>
-            </div>
-        </template>
+            <template>
+                <div>
+                    <button :class="$style.hand">CSS Module을 적용한 버튼</button>
+                </div>
+            </template>
 
-        <script>
-            export default {
-                mounted: function(){
-                    console.log(this.$style);
+            <script>
+                export default {
+                    mounted: function(){
+                        console.log(this.$style);
+                    }
                 }
-            }
-        </script>
+            </script>
 
-        <style module>
-            .hand {cursor:pointer;background:purple;color:yellow;}
-        </style>
+            <style module>
+                .hand {cursor:pointer;background:purple;color:yellow;}
+            </style>
 
 
 ----------------------------
