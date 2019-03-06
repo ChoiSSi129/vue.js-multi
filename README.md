@@ -127,24 +127,21 @@
 
         - module.js
 
-        let a = 100;
-
-        const add = function(b){
-            return a+b;
-        }
-
-        const multiply = function(b){
-            return a*b;
-        }
-
-        export {add, multiply};
-        export default add; // 하나만 export 할 경우
+            let a = 100;
+            const add = function(b){
+                return a+b;
+            }
+            const multiply = function(b){
+                return a*b;
+            }
+            export {add, multiply};
+            export default add; // 하나만 export 할 경우
 
         - main.js
-        
-        import { add, multiply } from "./module1";
-        import add from "./module1"; // 하나만 import 할 경우
-        import add, { add, multiply } from "./module1"; // 다중 import 할 경우
+
+            import { add, multiply } from "./module1";
+            import add from "./module1"; // 하나만 import 할 경우
+            import add, { add, multiply } from "./module1"; // 다중 import 할 경우
 
 * Promise
     - axios, fetch, vue-resource, superagent 등이 promise 지원
