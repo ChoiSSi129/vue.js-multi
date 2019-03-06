@@ -168,6 +168,7 @@
 
 ## 3일차
 1. Vue-CLI
+2. 컴포넌트 심화
 
 ### Vue-CLI
 * 애플리캐이션을 빠르게 개발할 수 있는 관련된 기능을 모두 제공하는 Vue.js 개발 도구
@@ -234,6 +235,58 @@
             <style module>
                 .hand {cursor:pointer;background:purple;color:yellow;}
             </style>
+
+    3. 공통 CSS 적용
+    - 적용이 필요한 부분에서 import하여 사용
+
+            import "./common.css";
+
+* 슬롯
+    1. 부모 컴포넌트와 자식컴포넌트 사이의 정보 교환 방법
+
+            부모 컴포넌트
+                <parent-component>
+                    <div>
+                        <p>
+                            {{A.message}}
+                        </p>
+                    </div>
+                </parent-component>
+
+            자식 컴포넌트
+                <div class="content">
+                    <slot></slot>
+                </div>
+    
+    2. 네임드 슬롯
+
+            부모 컴포넌트
+            <div id="app">
+                <layout>
+                    <header slot="header"></header>
+                <layout>
+            </div>
+
+            자식 컴포넌트
+            <div class="contents">
+                <slot name="header"></slot>
+            </div>
+
+    3. 범위 슬롯(자식 -> 부모)
+        - 자식 컴포넌트에서 데이터 바인딩
+        - 부모 컴포넌트에서 scope로 받아 사용
+
+                부모 컴포넌트
+                <div id="app">
+                    <layout>
+                        <header slot="header" scope="p1"></header>
+                    <layout>
+                </div>
+
+                자식 컴포넌트
+                <div class="contents">
+                    <slot name="header" :data="a.data"></slot>
+                </div>
 
 
 ----------------------------
