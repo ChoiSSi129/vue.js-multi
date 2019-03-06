@@ -126,6 +126,7 @@
     - import, export를 사용하여 모듈화 가능
 
         - module.js
+
         let a = 100;
 
         const add = function(b){
@@ -140,6 +141,7 @@
         export default add; // 하나만 export 할 경우
 
         - main.js
+        
         import { add, multiply } from "./module1";
         import add from "./module1"; // 하나만 import 할 경우
         import add, { add, multiply } from "./module1"; // 다중 import 할 경우
