@@ -75,23 +75,23 @@
 ### 컴포넌트
 * 부모 자식 관계로 트리 구조 형성
 * 부모 -> 자식
-- 속성(props) 전달(props 입력시 camal case or cabab case 주의하여 작성)
+    - 속성(props) 전달(props 입력시 camal case or cabab case 주의하여 작성)
 
-        props: {
-            message: {
-                type:String, 
-                required:true, 
-                default:{
-                    type:Array,
-                    default: function(){ // default value는 함수형태로 리턴
-                        return ['코리아']
+            props: {
+                message: {
+                    type:String, 
+                    required:true, 
+                    default:{
+                        type:Array,
+                        default: function(){ // default value는 함수형태로 리턴
+                            return ['코리아']
+                        }
                     }
                 }
             }
-        }
 
 * 자식 -> 부모
-- 이벤트(event) 발신
+    - 이벤트(event) 발신
 * Event Bus를 활용한 부모 컴포넌트에 변경된 데이터 전달
 * Event Bus 활용시 이벤트는 상수로 관리
 
@@ -209,38 +209,38 @@
 
 * 컴포넌트에서의 스타일
     1. scoped
-    - IE에서 Attribute속성이 느리다는 단점
-    - scoped 사용해도 자식 컴포넌트에는 스타일 상속
+        - IE에서 Attribute속성이 느리다는 단점
+        - scoped 사용해도 자식 컴포넌트에는 스타일 상속
 
-            <style scoped>
-                .main {....}
-            </style>
+                <style scoped>
+                    .main {....}
+                </style>
 
     2. module
-    - style에 module 추가하여 template class 바인딩 하여 사용
+        - style에 module 추가하여 template class 바인딩 하여 사용
 
-            <template>
-                <div>
-                    <button :class="$style.hand">CSS Module을 적용한 버튼</button>
-                </div>
-            </template>
+                <template>
+                    <div>
+                        <button :class="$style.hand">CSS Module을 적용한 버튼</button>
+                    </div>
+                </template>
 
-            <script>
-                export default {
-                    mounted: function(){
-                        console.log(this.$style);
+                <script>
+                    export default {
+                        mounted: function(){
+                            console.log(this.$style);
+                        }
                     }
-                }
-            </script>
+                </script>
 
-            <style module>
-                .hand {cursor:pointer;background:purple;color:yellow;}
-            </style>
+                <style module>
+                    .hand {cursor:pointer;background:purple;color:yellow;}
+                </style>
 
     3. 공통 CSS 적용
-    - 적용이 필요한 부분에서 import하여 사용
+        - 적용이 필요한 부분에서 import하여 사용
 
-            import "./common.css";
+                import "./common.css";
 
 * 슬롯
     1. 부모 컴포넌트와 자식컴포넌트 사이의 정보 교환 방법
@@ -274,130 +274,130 @@
             </div>
 
     3. 범위 슬롯(자식 -> 부모)
-    - 자식 컴포넌트에서 데이터 바인딩
-    - 부모 컴포넌트에서 scope로 받아 사용
+        - 자식 컴포넌트에서 데이터 바인딩
+        - 부모 컴포넌트에서 scope로 받아 사용
 
-            부모 컴포넌트
-            <div id="app">
-                <layout>
-                    <header slot="header" scope="p1"></header>
-                <layout>
-            </div>
+                부모 컴포넌트
+                <div id="app">
+                    <layout>
+                        <header slot="header" scope="p1"></header>
+                    <layout>
+                </div>
 
-            자식 컴포넌트
-            <div class="contents">
-                <slot name="header" :data="a.data"></slot>
-            </div>
+                자식 컴포넌트
+                <div class="contents">
+                    <slot name="header" :data="a.data"></slot>
+                </div>
 
 * 동적 컴포넌트
-- v-bind:is를 활용하여 작성
-- 정적 페이지의 경우 keep-alive로 캐싱 하여 사용 가능
+    - v-bind:is를 활용하여 작성
+    - 정적 페이지의 경우 keep-alive로 캐싱 하여 사용 가능
 
-        <template>
-        <div>
-        <ul>
-            <li><a href="#" @click="changeMenu('home')">Home</a></li>
-            <li><a href="#" @click="changeMenu('about')">About</a></li>
-            <li><a href="#" @click="changeMenu('contact')">Contact</a></li>
-        </ul>
+            <template>
+            <div>
+            <ul>
+                <li><a href="#" @click="changeMenu('home')">Home</a></li>
+                <li><a href="#" @click="changeMenu('about')">About</a></li>
+                <li><a href="#" @click="changeMenu('contact')">Contact</a></li>
+            </ul>
 
-        <div class="container">
-            <!-- 정적 페이지의 경우 keep-alive 사용 -->
-            <keep-alive include="about,home">
-            <component v-bind:is="currentView"></component>
-            </keep-alive>
-        </div>
-        </div>
-        </template>
-        <script>
-        import Home from './components/Home.vue';
-        import About from './components/About.vue';
-        import Contact from './components/Contact.vue';
-        export default {
-        name: 'App',
-        components : { Home, About, Contact },
-        data() {
-            return { currentView : 'home' }
-        },
-        methods : {
-            changeMenu(view) {
-            this.currentView = view;
+            <div class="container">
+                <!-- 정적 페이지의 경우 keep-alive 사용 -->
+                <keep-alive include="about,home">
+                <component v-bind:is="currentView"></component>
+                </keep-alive>
+            </div>
+            </div>
+            </template>
+            <script>
+            import Home from './components/Home.vue';
+            import About from './components/About.vue';
+            import Contact from './components/Contact.vue';
+            export default {
+            name: 'App',
+            components : { Home, About, Contact },
+            data() {
+                return { currentView : 'home' }
+            },
+            methods : {
+                changeMenu(view) {
+                this.currentView = view;
+                }
             }
-        }
-        }
-        </script>
-        <style>
-        </style>
+            }
+            </script>
+            <style>
+            </style>
 
 * 재귀 컴포넌트
-- 템플릿에서 자기자신을 호출하는 컴포넌트
-- 반드시 name 옵션이 지정되어야 한다
+    - 템플릿에서 자기자신을 호출하는 컴포넌트
+    - 반드시 name 옵션이 지정되어야 한다
 
-        tree.vue
-        <template>
-            <ul>
-                <li v-for="item in subs" :class="item.type" :key="item.name">
-                    {{item.name}}
-                    <tree :subs="item.subs" />
-                </li>
-            </ul>
-        </template>
+            tree.vue
+            <template>
+                <ul>
+                    <li v-for="item in subs" :class="item.type" :key="item.name">
+                        {{item.name}}
+                        <tree :subs="item.subs" />
+                    </li>
+                </ul>
+            </template>
 
-        <script>
-        export default {
-            name: "tree",
-            props: ["subs"]
-        }
-        </script>
+            <script>
+            export default {
+                name: "tree",
+                props: ["subs"]
+            }
+            </script>
 
-        <style>
-        </style>
+            <style>
+            </style>
 
-        About.vue
-        <template>
-            <div>
-                <h1>About</h1>
-                <h4>조직도</h4>
-                <tree :subs="orgcharts"></tree>
-            </div>
-        </template>
-        <script>
-        import Tree from './Tree.vue';
-        export default {
-        name : "about",
-        components : { Tree },
-        data : function() {
-            return {
-            orgcharts : [
-                {
-                name : "(주) OpenSG", type:"company", 
-                subs : [
-                    { 
-                        name: "SI 사업부", type:"division", 
-                        subs : [
-                            { name: "SI 1팀", type:"team" },
-                            { name: "SI 2팀", type:"team" }
-                        ] 
-                    },
-                    { name: "총무팀", type:"team" },
-                    { name: "인사팀", type:"team" }
+            About.vue
+            <template>
+                <div>
+                    <h1>About</h1>
+                    <h4>조직도</h4>
+                    <tree :subs="orgcharts"></tree>
+                </div>
+            </template>
+            <script>
+            import Tree from './Tree.vue';
+            export default {
+            name : "about",
+            components : { Tree },
+            data : function() {
+                return {
+                orgcharts : [
+                    {
+                    name : "(주) OpenSG", type:"company", 
+                    subs : [
+                        { 
+                            name: "SI 사업부", type:"division", 
+                            subs : [
+                                { name: "SI 1팀", type:"team" },
+                                { name: "SI 2팀", type:"team" }
+                            ] 
+                        },
+                        { name: "총무팀", type:"team" },
+                        { name: "인사팀", type:"team" }
+                    ]
+                    }
                 ]
                 }
-            ]
             }
-        }
-        }
-        </script>
-        <style>
-        </style>
+            }
+            </script>
+            <style>
+            </style>
 
 ### axios를 이용한 서버통신
 
 * Cross Origin
-- 프론트 서버와 데이터 서버가 다를 경우 Cross Origin 발생
-- 데이터 서버에서 CORS 설정해 주는 방법
-- 개발서버에서 Proxy설정 하여 우회하는 방법
-- Node.js + express (http-proxy-middleware) 사용
+    - 프론트 서버와 데이터 서버가 다를 경우 Cross Origin 발생
+    - 데이터 서버에서 CORS 설정해 주는 방법
+    - 개발서버에서 Proxy설정 하여 우회하는 방법
+    - Node.js + express (http-proxy-middleware) 사용
 
 
 ----------------------------
