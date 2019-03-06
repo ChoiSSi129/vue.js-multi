@@ -93,6 +93,7 @@
 * 자식 -> 부모
 - 이벤트(event) 발신
 * Event Bus를 활용한 부모 컴포넌트에 변경된 데이터 전달
+* Event Bus 활용시 이벤트는 상수로 관리
 
         // 빈 Vue 인스턴스 생성
         var eventBus = new Vue();
@@ -123,7 +124,7 @@
         test("a1", "a2", "a3", "a4")
     
 * 모듈
-    - import, export를 사용하여 모듈화 가능
+    - import, export를 사용하여 모듈화
 
         - module.js
 
@@ -166,6 +167,73 @@
 ----------------------------
 
 ## 3일차
+1. Vue-CLI
+
+### Vue-CLI
+* 애플리캐이션을 빠르게 개발할 수 있는 관련된 기능을 모두 제공하는 Vue.js 개발 도구
+    - CLI
+    - CLI 서비스
+    - CLI 플러그인
+
+* 터미널에 익숙하지 않다면 vue ui 활용
+
+### 컴포넌트 심화
+* 단일 파일 컴포넌트
+    - 전역 컴포넌트는 한 파일 안에 많은 내용들이 들어 있어 가독성에 좋지 않음
+    - vue-loader 패키지가 단일 컴포넌트를 지원
+
+        <template>
+
+        </template>
+
+        <script>
+            export default {
+                name: "",
+                data: function(){
+                    return{
+
+                    }
+                },
+                methods: {
+                    
+                }
+                
+            }
+        </script>
+
+        <style>
+
+        </style>
+
+* 컴포넌트에서의 스타일
+    1. scoped
+    - IE에서 Attribute속성이 느리다는 단점
+    - scoped 사용해도 자식 컴포넌트에는 스타일 상속
+
+        <style scoped>
+            .main {....}
+        </style>
+
+    2. module
+    - style에 module 추가하여 template class 바인딩 하여 사용
+
+        <template>
+            <div>
+                <button :class="$style.hand">CSS Module을 적용한 버튼</button>
+            </div>
+        </template>
+
+        <script>
+            export default {
+                mounted: function(){
+                    console.log(this.$style);
+                }
+            }
+        </script>
+
+        <style module>
+            .hand {cursor:pointer;background:purple;color:yellow;}
+        </style>
 
 
 ----------------------------
