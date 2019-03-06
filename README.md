@@ -169,6 +169,7 @@
 ## 3일차
 1. Vue-CLI
 2. 컴포넌트 심화
+3. axios를 이용한 서버통신
 
 ### Vue-CLI
 * 애플리캐이션을 빠르게 개발할 수 있는 관련된 기능을 모두 제공하는 Vue.js 개발 도구
@@ -273,20 +274,130 @@
             </div>
 
     3. 범위 슬롯(자식 -> 부모)
-        - 자식 컴포넌트에서 데이터 바인딩
-        - 부모 컴포넌트에서 scope로 받아 사용
+    - 자식 컴포넌트에서 데이터 바인딩
+    - 부모 컴포넌트에서 scope로 받아 사용
 
-                부모 컴포넌트
-                <div id="app">
-                    <layout>
-                        <header slot="header" scope="p1"></header>
-                    <layout>
-                </div>
+            부모 컴포넌트
+            <div id="app">
+                <layout>
+                    <header slot="header" scope="p1"></header>
+                <layout>
+            </div>
 
-                자식 컴포넌트
-                <div class="contents">
-                    <slot name="header" :data="a.data"></slot>
-                </div>
+            자식 컴포넌트
+            <div class="contents">
+                <slot name="header" :data="a.data"></slot>
+            </div>
+
+* 동적 컴포넌트
+- v-bind:is를 활용하여 작성
+- 정적 페이지의 경우 keep-alive로 캐싱 하여 사용 가능
+
+        <template>
+        <div>
+        <ul>
+            <li><a href="#" @click="changeMenu('home')">Home</a></li>
+            <li><a href="#" @click="changeMenu('about')">About</a></li>
+            <li><a href="#" @click="changeMenu('contact')">Contact</a></li>
+        </ul>
+
+        <div class="container">
+            <!-- 정적 페이지의 경우 keep-alive 사용 -->
+            <keep-alive include="about,home">
+            <component v-bind:is="currentView"></component>
+            </keep-alive>
+        </div>
+        </div>
+        </template>
+        <script>
+        import Home from './components/Home.vue';
+        import About from './components/About.vue';
+        import Contact from './components/Contact.vue';
+        export default {
+        name: 'App',
+        components : { Home, About, Contact },
+        data() {
+            return { currentView : 'home' }
+        },
+        methods : {
+            changeMenu(view) {
+            this.currentView = view;
+            }
+        }
+        }
+        </script>
+        <style>
+        </style>
+
+* 재귀 컴포넌트
+- 템플릿에서 자기자신을 호출하는 컴포넌트
+- 반드시 name 옵션이 지정되어야 한다
+
+        tree.vue
+        <template>
+            <ul>
+                <li v-for="item in subs" :class="item.type" :key="item.name">
+                    {{item.name}}
+                    <tree :subs="item.subs" />
+                </li>
+            </ul>
+        </template>
+
+        <script>
+        export default {
+            name: "tree",
+            props: ["subs"]
+        }
+        </script>
+
+        <style>
+        </style>
+
+        About.vue
+        <template>
+            <div>
+                <h1>About</h1>
+                <h4>조직도</h4>
+                <tree :subs="orgcharts"></tree>
+            </div>
+        </template>
+        <script>
+        import Tree from './Tree.vue';
+        export default {
+        name : "about",
+        components : { Tree },
+        data : function() {
+            return {
+            orgcharts : [
+                {
+                name : "(주) OpenSG", type:"company", 
+                subs : [
+                    { 
+                        name: "SI 사업부", type:"division", 
+                        subs : [
+                            { name: "SI 1팀", type:"team" },
+                            { name: "SI 2팀", type:"team" }
+                        ] 
+                    },
+                    { name: "총무팀", type:"team" },
+                    { name: "인사팀", type:"team" }
+                ]
+                }
+            ]
+            }
+        }
+        }
+        </script>
+        <style>
+        </style>
+
+### axios를 이용한 서버통신
+
+* Cross Origin
+- 프론트 서버와 데이터 서버가 다를 경우 Cross Origin 발생
+- 데이터 서버에서 CORS 설정해 주는 방법
+- 개발서버에서 Proxy설정 하여 우회하는 방법
+- Node.js + express (http-proxy-middleware) 사용
 
 
 ----------------------------
