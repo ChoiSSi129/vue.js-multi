@@ -419,7 +419,7 @@
 * Action에서 외부 API사용
 * Mutation에서 상태변경하여 State에 적용
 
-        Contant.js
+        Constant.js
         export default {
             ADD_TODO: "addTodo",
         }
