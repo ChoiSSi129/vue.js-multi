@@ -1,35 +1,47 @@
 <template>
     <ul id="todolist">
         <li v-for="a in todolist" :key="a.id" :class="checked(a.done)"
-        @click="doneToggle(a.id)">
+        @click="doneToggle({id: a.id})">
             <span>{{ a.todo }}</span>
             <span v-if="a.done"> (완료)</span>
-            <span class="close" v-on:click.stop="deleteTodo(a.id)">&#x00D7;</span>
+            <span class="close" v-on:click.stop="deleteTodo({id: a.id})">&#x00D7;</span>
         </li>
     </ul>
 </template>
 
 <script>
 import Constant from "../Constant.js";
+import { mapState, mapActions } from "vuex";
 
 export default {
     name: "list",
-    computed: { // getter
-        todolist: function(){
-            return this.$store.state.todolist;
-        }
-    },
+    computed: mapState(["todolist"]), // helper 사용시
+    // computed: { // getter
+    //     todolist: function(){
+    //         return this.$store.state.todolist;
+    //     }
+    // },
     methods: {
         checked: function(done) {
             if(done) return { checked:true };
             else return { checked:false };
         },
-        doneToggle: function(id) {
-            this.$store.commit(Constant.DONE_TOGGLE, {id: id});
-        },
-        deleteTodo: function(id) {
-            this.$store.commit(Constant.DELETE_TODO, {id: id});
-        }
+        // doneToggle: function(id) {
+        //     this.$store.commit(Constant.DONE_TOGGLE, {id: id});
+        // },
+        // deleteTodo: function(id) {
+        //     this.$store.commit(Constant.DELETE_TODO, {id: id});
+        // }
+        // mapMutations 사용시 인자 형태는 payload 형태로 변경 {id: id}
+        // ...mapMutations([
+        //     Constant.DELETE_TODO, 
+        //     Constant.DONE_TOGGLE
+        // ])
+
+        ...mapActions([
+            Constant.DELETE_TODO, 
+            Constant.DONE_TOGGLE
+        ])
     }
     
 }
