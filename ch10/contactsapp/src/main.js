@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import axios from "axios";
-import "bootsrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.css";
 import ES6Promise from "es6-promise";
 ES6Promise.polyfill();
 

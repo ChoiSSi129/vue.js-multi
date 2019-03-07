@@ -399,10 +399,65 @@
     - 개발서버에서 Proxy설정 하여 우회하는 방법
     - Node.js + express (http-proxy-middleware) 사용
 
+* 전역 설정 방법
+
+        import axios from "axios";
+        Vue.prototype.$axios = axios; // Vue 인스턴스에 $axios 프로토타입 생성
+
 
 ----------------------------
 
 ## 4일차
+1. Vuex
+
+### Vuex를 이용한 상태관리
+* flux 아키텍처 Vuex (React에서는 redux)
+* 상태관리 라이브러리가 필요한 이유
+    - 중앙 집중화된 상태 정보가 필요한경우
+    - 상태 정보가 변경되는 상황과 시간을 추적 할 경우
+    - 컴포넌트에서 상태 정보를 안전하게 접근하고 싶을 경우
+* Action에서 외부 API사용
+* Mutation에서 상태변경하여 State에 적용
+
+        Contant.js
+        export default {
+            ADD_TODO: "addTodo",
+        }
+
+        store/index.js
+        import Vue from "vue";
+        import Vuex from "vuex";
+        import Constant from "../Constant";
+
+        // 모든 뷰 컴포넌트에서 Store 접근 가능
+        // mutations에서 state(현재 상태)와 payload(변경된 상태) 2개의 인자 값으로 사용
+        Vue.use(Vuex);
+
+        const store = new Vuex.Store({
+            state: {
+                todolist: [
+                    { id:1, todo:"영화보기", done:false },
+                    { id:2, todo:"주말 산책", done:true },
+                    { id:3, todo:"ES6 학습", done:false },
+                    { id:4, todo:"잠실 야구장", done:false },
+                ]
+            },
+            mutations: {
+                [Constant.ADD_TODO]: (state, payload) => {
+                    if(payload.todo !== ""){
+                        state.todolist .push({ id: new Date().getTime(), todo: payload.todo, done: false });
+                    }
+                }
+            }
+        });
+        export default store;
+
+        InputTodo.vue
+        methods: {
+            addTodo: function(){
+                this.$store.commit(Constant.ADD_TODO, {todo: this.todo}); // Store에 전달시 commit사용 하여 전달
+            }
+        }
 
 
 ----------------------------
