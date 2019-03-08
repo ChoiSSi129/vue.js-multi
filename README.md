@@ -474,7 +474,7 @@
 ----------------------------
 
 ## 5일차
-1. strapi 개념 원리
+1. strapi(JWT Restul API)관련 노드 모듈 
 2. vue-router
 
 ### Router
