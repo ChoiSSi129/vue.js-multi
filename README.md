@@ -478,10 +478,10 @@
 2. vue-router
 
 ### Router
-* URI(Uniform Resource Identifer) 경로에 따라 각각 다른 화면이 엔더링 되도록 만들어진 라이브러리
+* URI(Uniform Resource Identifer) 경로에 따라 각각 다른 화면이 렌더링 되도록 만들어진 라이브러리
 * 사용 방법
 
-        main.js
+        #### main.js
         import VueRouter from 'vue-router'
         Vue.use(VueRouter); // Vue 인스턴스에 전역 객체로 등록
 
