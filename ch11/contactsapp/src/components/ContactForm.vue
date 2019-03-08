@@ -33,20 +33,13 @@
 </template>
 
 <script>
-import eventBus from '../EventBus.js';
+import Constant from "../Constant";
+import {mapState} from "vuex";
+
 export default {
     name : "contactForm",
-    props : { 
-        mode : { type:String, default:'add' },
-        contact : {
-            type : Object,
-            default : function() {
-                return { no:'', name:'', tel:'', address:'', photo:'' }
-            }
-        }
-    },
     mounted : function() {
-        this.$refs.name.focus()
+        this.$refs.name.focus();
     },
     computed : {
         btnText : function() {
@@ -56,18 +49,19 @@ export default {
         headingText : function() {
             if (this.mode != 'update') return '새로운 연락처 추가';
             else return '연락처 변경';
-        }
+        },
+        ...mapState(["mode", "contact"])
     },
     methods : {
         submitEvent : function() {
             if (this.mode == "update") {
-                eventBus.$emit("updateSubmit", this.contact)
+                this.$store.dispatch(Constant.UPDATE_CONTACT);
             } else {
-                eventBus.$emit("addSubmit", this.contact);
+                this.$store.dispatch(Constant.ADD_CONTACT);
             }
         },
         cancelEvent : function() {
-            eventBus.$emit("cancel");
+            this.$store.dispatch(Constant.CANCEL_FORM);
         }
     }
 }

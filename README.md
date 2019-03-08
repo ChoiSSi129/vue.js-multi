@@ -474,6 +474,33 @@
 ----------------------------
 
 ## 5일차
+1. strapi 개념 원리
+2. vue-router
+
+### Router
+* URI(Uniform Resource Identifer) 경로에 따라 각각 다른 화면이 엔더링 되도록 만들어진 라이브러리
+* 사용 방법
+
+        main.js
+        import VueRouter from 'vue-router'
+        Vue.use(VueRouter); // Vue 인스턴스에 전역 객체로 등록
+
+        App.vue
+        <template>
+            <router-link to="/home">Home</router-link> // router-link태그의 to속성으로 URI경로 등록
+        </template>
+
+        const router = new VueRouter({
+            routes: [
+                { path: "/", component: Home }, // path URI와 렌더링할 component 등록
+            ]
+        });
+
+        export default {
+        name: "app",
+        router // router 주입
+        }
+
 
 
 
