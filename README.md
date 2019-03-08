@@ -126,23 +126,21 @@
 * 모듈
     - import, export를 사용하여 모듈화
 
-        - module.js
+            #### module.js
+            let a = 100;
+            const add = function(b){
+                return a+b;
+            }
+            const multiply = function(b){
+                return a*b;
+            }
+            export {add, multiply};
+            export default add; // 하나만 export 할 경우
 
-                let a = 100;
-                const add = function(b){
-                    return a+b;
-                }
-                const multiply = function(b){
-                    return a*b;
-                }
-                export {add, multiply};
-                export default add; // 하나만 export 할 경우
-
-        - main.js
-
-                import { add, multiply } from "./module1";
-                import add from "./module1"; // 하나만 import 할 경우
-                import add, { add, multiply } from "./module1"; // 다중 import 할 경우
+            #### main.js
+            import { add, multiply } from "./module1";
+            import add from "./module1"; // 하나만 import 할 경우
+            import add, { add, multiply } from "./module1"; // 다중 import 할 경우
 
 * Promise
     - axios, fetch, vue-resource, superagent 등이 promise 지원
@@ -152,13 +150,13 @@
 * 전개 연산자
     - 기존 객체의 속성이나 배열의 요소들을 포함하여 새로운 객체, 배열을 생성하고자 할 때 사용
 
-            기존
+            #### 기존
             let obj1 = { name:"홍길동", age:30 };
             let obj2 = obj1;
             obj1 === obj2 // true
             obj2.name = "이몽룡"; // obj1.name도 같이 변경
 
-            전개 연산자
+            #### 전개 연산자
             let obj1 = { name:"홍길동", age:30 };
             let obj2 = {...obj1};
             obj1 === obj2 // flase
@@ -245,7 +243,7 @@
 * 슬롯
     1. 부모 컴포넌트와 자식컴포넌트 사이의 정보 교환 방법
 
-            부모 컴포넌트
+            #### 부모 컴포넌트
                 <parent-component>
                     <div>
                         <p>
@@ -254,21 +252,21 @@
                     </div>
                 </parent-component>
 
-            자식 컴포넌트
+            #### 자식 컴포넌트
                 <div class="content">
                     <slot></slot>
                 </div>
     
     2. 네임드 슬롯
 
-            부모 컴포넌트
+            #### 부모 컴포넌트
             <div id="app">
                 <layout>
                     <header slot="header"></header>
                 <layout>
             </div>
 
-            자식 컴포넌트
+            #### 자식 컴포넌트
             <div class="contents">
                 <slot name="header"></slot>
             </div>
@@ -277,14 +275,14 @@
         - 자식 컴포넌트에서 데이터 바인딩
         - 부모 컴포넌트에서 scope로 받아 사용
 
-                부모 컴포넌트
+                #### 부모 컴포넌트
                 <div id="app">
                     <layout>
                         <header slot="header" scope="p1"></header>
                     <layout>
                 </div>
 
-                자식 컴포넌트
+                #### 자식 컴포넌트
                 <div class="contents">
                     <slot name="header" :data="a.data"></slot>
                 </div>
@@ -333,7 +331,7 @@
     - 템플릿에서 자기자신을 호출하는 컴포넌트
     - 반드시 name 옵션이 지정되어야 한다
 
-            tree.vue
+            #### tree.vue
             <template>
                 <ul>
                     <li v-for="item in subs" :class="item.type" :key="item.name">
@@ -419,12 +417,12 @@
 * Action에서 외부 API사용
 * Mutation에서 상태변경하여 State에 적용
 
-        Constant.js
+        #### Constant.js
         export default {
             ADD_TODO: "addTodo",
         }
 
-        store/index.js
+        #### store/index.js
         import Vue from "vue";
         import Vuex from "vuex";
         import Constant from "../Constant";
@@ -452,7 +450,7 @@
         });
         export default store;
 
-        InputTodo.vue
+        #### InputTodo.vue
         methods: {
             addTodo: function(){
                 this.$store.commit(Constant.ADD_TODO, {todo: this.todo}); // Store에 전달시 commit사용 하여 전달
@@ -485,7 +483,7 @@
         import VueRouter from 'vue-router'
         Vue.use(VueRouter); // Vue 인스턴스에 전역 객체로 등록
 
-        App.vue
+        #### App.vue
         <template>
             <router-link to="/home">Home</router-link> // router-link태그의 to속성으로 URI경로 등록
         </template>
@@ -497,10 +495,97 @@
         });
 
         export default {
-        name: "app",
-        router // router 주입
+            name: "app",
+            router // router 주입
         }
 
+* 중첩 라우트
 
+        #### App.vue
+        const router = new VueRouter({
+            routes: [
+                { 
+                    path: "/contacts", component: Contacts,
+                    children: [
+                        { path: ":no", component: ContactByNo }, // 중첩 라우트 사용시 children 추가하여 사용
+                    ]
+                }
+            ]
+        });
 
+* 네임드 라우트
+    - name 속성 지정하여 사용할 경우 path경로가 바뀔시 다른곳에 링크된 경로를 수정 해주지 않아도 되는 장점이 있다
 
+            #### App.vue
+            const router = new VueRouter({
+                routes: [
+                    { 
+                        path: "/contacts", name:"contacts", component: Contacts,
+                        children: [
+                            { path: ":no", name: "contactbyno" component: ContactByNo }, // 중첩 라우트 사용시 children 추가하여 사용
+                        ]
+                    }
+                ]
+            });
+
+* $route : 현재 컴포넌트로 요청된 경로 정보
+* $rouer : Vue Router 객체
+    - history : history API
+    - this.$router.push(location, onComplete, onAbort); // history.pushState와 같은 기능
+
+* 내비게이션 보호
+    - 전역수준
+
+            const router = new VueRouter({...});
+            router.beforeEach( (to, form, next) => {...} ); // 라우팅이 일어나기 전
+            router.afterEach( (to, form) => {...} ); // 라우팅이 일어난 후
+
+    - 라우트별 보호 기능
+
+            const router = new VueRouter({
+                routes: [
+                    {
+                        path: "contacts/:no",
+                        component:ContactsByNo,
+                        beforeEnter: (to, from, next) => {
+                            ...
+                        }
+                    }
+                ]
+            });
+
+    - 컴포넌트 수준의 내비게이션 보호 기능
+
+            const Foo = {
+                beforeRouteEnter(to, from, next){}
+                beforeRouteLeave(to, from, next){}
+                beforeRouteUpdate(to, from, next){}
+            }
+
+* 라우팅 모드
+    - hash 모드 #기호 생성되어 사용 된다 (http://locahost/#/contacts)
+    - history 모드 (서버에서 historyApiFallback기능 정의되어 있어야 사용 가능 IE10 이하 사용 불가)
+
+* 라우트 정보를 속성으로 연결하기
+    - props를 사용하여 컴포너트에 데이터 전달(함수로도 전달 가능)
+
+        #### App.vue
+        const router = new VueRouter({
+            routes: [
+                { 
+                    path: "/contacts", name:"contacts", component: Contacts,
+                    children: [
+                        { path: ":no", name: "contactbyno" component: ContactByNo, pops:true },
+                    ]
+                }
+            ]
+        });
+
+* lazy-loading
+
+        const Home = () => import(/* webpackChunkName: "home" */ "./components/Home");
+        const Foo = () => Promise.resolve({ /* 컴포넌트 정의 */ })
+
+* Named View
+
+        <router-view name="a"></router-view> // name 속성 매칭하여 사용

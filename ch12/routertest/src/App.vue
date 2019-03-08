@@ -4,9 +4,9 @@
       <h1 class="headerText">라우터 테스트</h1>
       <nav>
         <ul>
-          <li><router-link to="/home">Home</router-link></li>
-          <li><router-link to="/about">About</router-link></li>
-          <li><router-link to="/contacts">Contacts</router-link></li>
+          <li><router-link :to="{name:'home'}">Home</router-link></li>
+          <li><router-link :to="{name:'about'}">About</router-link></li>
+          <li><router-link :to="{name:'contacts'}">Contacts</router-link></li>
         </ul>
       </nav>
     </div>
@@ -21,14 +21,32 @@
 import Home from "./components/Home";
 import About from "./components/About";
 import Contacts from "./components/Contacts";
+import ContactByNo from "./components/ContactByNo";
+import NotFound from "./components/NotFound";
 import VueRouter from "vue-router";
 
 const router = new VueRouter({
+  mode: "history",
   routes: [
     { path: "/", component: Home },
-    { path: "/home", component: Home },
-    { path: "/about", component: About },
-    { path: "/contacts", component: Contacts },
+    { path: "/home", name: "home", component: Home },
+    { path: "/about", name: "about", component: About },
+    { 
+      path: "/contacts", name: "contacts", component: Contacts,
+      children: [
+        { 
+          path: ":no", name:"contactbyno", component: ContactByNo, beforeEnter: function(to, from, next){
+            console.log("### beforeEach");
+            if(from.path.startsWith("/contacts")){
+              next();
+            } else{
+              next("home");
+            }
+          }
+        },
+      ]
+    },
+    { path: "*", component: NotFound },
   ]
 });
 
